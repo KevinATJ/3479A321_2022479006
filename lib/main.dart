@@ -70,19 +70,37 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _decrementCounter() {
     setState(() {
-
       _counter--;
     });
   }
 
   void _resetCounter() {
     setState(() {
-
       _counter = 0;
     });
   }
 
-
+  BottomAppBar _bottomButtons() {
+    return BottomAppBar(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          IconButton(
+            color: Colors.red,
+            icon: const Icon(Icons.exposure_minus_1),
+            onPressed: _decrementCounter,
+            tooltip: 'Disminuir',
+          ),
+          IconButton(
+            color: Colors.green,
+            icon: const Icon(Icons.plus_one),
+            onPressed: _incrementCounter,
+            tooltip: 'Incrementar',
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
-        backgroundColor: Colors.amber,
+        backgroundColor: Colors.blue,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
@@ -131,29 +149,12 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.remove),
-              onPressed: _decrementCounter,
-              tooltip: 'Disminuir',
-            ),
-            IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: _incrementCounter,
-              tooltip: 'Incrementar',
-            ),
-          ],
-        ),
-      ),
+      bottomNavigationBar: _bottomButtons(),
       floatingActionButton: FloatingActionButton(
         onPressed: _resetCounter,
         tooltip: 'Resetear',
         child: const Icon(Icons.refresh),
       ), // This trailing comma makes auto-formatting nicer for build methods.
-      
     );
   }
 }

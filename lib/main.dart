@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lab1/pages/myhomepage.dart';
-import 'package:flutter_lab1/pages/detailpage.dart';
-import 'package:flutter_lab1/pages/aboutpage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart'; 
-
 
 void main() {
   runApp(const MyApp());
@@ -16,10 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var logger = Logger();
-    logger.d("Logger is working!");
+    //logger.d("Logger is working!");
 
     return MaterialApp(
-      title: 'Laboratorio 3 Flutter',
+      title: 'Laboratorio 4 Flutter',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.deepPurple,

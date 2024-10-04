@@ -31,6 +31,7 @@ class AboutPage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
+        
         onPressed: () {
           Navigator.pop(context);
         },

@@ -9,7 +9,11 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  // ignore: no_logic_in_create_state
+  State<MyHomePage> createState() {
+    Logger().d("create state");
+    return _MyHomePageState();
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -20,6 +24,28 @@ class _MyHomePageState extends State<MyHomePage> {
   String iconPathVictory = 'assets/icons/Win.svg';
   String iconPathDefeat = 'assets/icons/Defeat.svg';
   String iconPathReset = 'assets/icons/Restart.svg';
+
+  _MyHomePageState() {
+    print('constructor, mounted: $mounted');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    print('initState, mounted: $mounted');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    print('didChangeDependencies, mounted: $mounted');
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    print('setState');
+    super.setState(fn);
+  }
 
   void _incrementCounter() {
     setState(() {
@@ -41,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    secondlogger.d('Second logger MyHomePage is working!');
+    print('build method');
 
     String gameIcon;
     String message;
@@ -63,13 +89,13 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: SizedBox(
-          width: 1200,  
-          height: 600, 
+          width: 1200,
+          height: 600,
           child: Card(
             margin: const EdgeInsets.all(16.0),
             elevation: 8,
             child: Column(
-              mainAxisSize: MainAxisSize.max, 
+              mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -81,7 +107,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         width: 50,
                         height: 50,
                       ),
-                      
                     ],
                   ),
                 ),
@@ -130,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const DetailPage()),
           );
@@ -140,5 +165,31 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
+  @override
+  void didUpdateWidget(covariant MyHomePage oldwidget) {
+    super.didUpdateWidget(oldwidget);
+    print('didUpdateWidget, mounted: $mounted');
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    print('deactivate, mounted: $mounted');
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print('dispose, mounted: $mounted');
+  }
+
+  @override
+  void reassemble() {
+    super.reassemble();
+    print('reassemble, mounted: $mounted');
+  }
 }
+
+
 

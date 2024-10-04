@@ -4,6 +4,8 @@ import 'package:flutter_lab1/pages/aboutpage.dart';
 class DetailPage extends StatelessWidget {
   const DetailPage({super.key});
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +48,7 @@ class DetailPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             FloatingActionButton(
+              heroTag: null,
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -53,6 +56,7 @@ class DetailPage extends StatelessWidget {
               child: const Icon(Icons.arrow_back),
             ),
             FloatingActionButton(
+              heroTag: null,
               onPressed: () {
                 Navigator.push(
                   context,
@@ -67,5 +71,7 @@ class DetailPage extends StatelessWidget {
       ),
     );
   }
+
+  
 }
 

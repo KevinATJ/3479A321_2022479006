@@ -128,8 +128,8 @@ class _MyHomePageState extends State<MyHomePage> {
               title: const Text('Auditoria'),
               onTap: (){
                 //Navigator.push(
-                //  context, 
-                //  MaterialPageRoute(builder: (context) => const AboutPage()),
+                  //context, 
+                  //MaterialPageRoute(builder: (context) => const AuditPage()),
                 //  );
               }
             ),

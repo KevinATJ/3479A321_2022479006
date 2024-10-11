@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lab1/pages/aboutpage.dart';
 import 'package:flutter_lab1/pages/detailpage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:logger/logger.dart';
@@ -86,6 +87,54 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         title: Text(widget.title),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const UserAccountsDrawerHeader(
+              accountName: Text('Kevin Troncoso'), 
+              accountEmail: Text('Kevintjara@gmail.com'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.plus_one),
+              title: const Text('Contador'),
+              onTap: (){
+                _incrementCounter();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.description),
+              title: const Text('Detalles'),
+              onTap: (){
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (context) => const DetailPage()),
+                  );
+              },
+            ),
+            ListTile(
+              leading:  const Icon(Icons.info),
+              title: const Text('Sobre'),
+              onTap: (){
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (context) => const AboutPage()),
+                  );
+              }
+            ),
+            ListTile(
+              leading:  const Icon(Icons.fact_check),
+              title: const Text('Auditoria'),
+              onTap: (){
+                //Navigator.push(
+                //  context, 
+                //  MaterialPageRoute(builder: (context) => const AboutPage()),
+                //  );
+              }
+            ),
+          ],
+        ),
       ),
       body: Center(
         child: SizedBox(

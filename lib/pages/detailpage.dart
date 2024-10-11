@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lab1/appdata.dart';
 import 'package:flutter_lab1/pages/aboutpage.dart';
+import 'package:provider/provider.dart'; 
+
 
 class DetailPage extends StatelessWidget {
   const DetailPage({super.key});
 
-  
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<AppData>(context, listen: false).actions.add('Ingreso a la pantalla detail');
+    int counter = context.watch<AppData>().counter;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail'),
@@ -19,6 +24,11 @@ class DetailPage extends StatelessWidget {
             const Text(
               'Esta es la pantalla de detalles',
               style: TextStyle(fontSize: 24),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Contador: $counter',
+              style: const TextStyle(fontSize: 32),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
@@ -71,7 +81,5 @@ class DetailPage extends StatelessWidget {
       ),
     );
   }
-
-  
 }
 

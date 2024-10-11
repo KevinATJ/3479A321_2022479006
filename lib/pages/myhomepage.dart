@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lab1/appdata.dart';
 import 'package:flutter_lab1/pages/aboutpage.dart';
+import 'package:flutter_lab1/pages/auditpage.dart';
 import 'package:flutter_lab1/pages/detailpage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -33,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    Provider.of<AppData>(context, listen: false).actions.add('Ingreso a la pantalla home');
     print('initState, mounted: $mounted');
   }
 
@@ -72,10 +76,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
     String gameIcon;
     String message;
-    if (_counter == 10) {
+    if (context.watch<AppData>().counter == 10) {
       gameIcon = iconPathVictory;
       message = '¡Victoria!';
-    } else if (_counter == 5) {
+    } else if (context.watch<AppData>().counter == 5) {
       gameIcon = iconPathDefeat;
       message = 'Derrota';
     } else {
@@ -100,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
               leading: const Icon(Icons.plus_one),
               title: const Text('Contador'),
               onTap: (){
-                _incrementCounter();
+                context.read<AppData>().incrementCounter();
               },
             ),
             ListTile(
@@ -127,10 +131,10 @@ class _MyHomePageState extends State<MyHomePage> {
               leading:  const Icon(Icons.fact_check),
               title: const Text('Auditoria'),
               onTap: (){
-                //Navigator.push(
-                  //context, 
-                  //MaterialPageRoute(builder: (context) => const AuditPage()),
-                //  );
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (context) => const AuditPage()),
+                  );
               }
             ),
           ],
@@ -179,19 +183,19 @@ class _MyHomePageState extends State<MyHomePage> {
                       IconButton(
                         color: Colors.red,
                         icon: const Icon(Icons.exposure_minus_1),
-                        onPressed: _decrementCounter,
+                        onPressed: context.read<AppData>().decrementCounter,
                         tooltip: 'Disminuir',
                       ),
                       IconButton(
                         color: Colors.green,
                         icon: const Icon(Icons.plus_one),
-                        onPressed: _incrementCounter,
+                        onPressed: context.read<AppData>().incrementCounter,
                         tooltip: 'Incrementar',
                       ),
                       IconButton(
                         color: Colors.blue,
                         icon: const Icon(Icons.refresh),
-                        onPressed: _resetCounter,
+                        onPressed: context.read<AppData>().resetCounter,
                         tooltip: 'Resetear',
                       ),
                     ],

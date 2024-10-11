@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_lab1/appdata.dart';
+import 'package:provider/provider.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+     Provider.of<AppData>(context, listen: false).actions.add('Ingreso a la pantalla about');
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('About me'),

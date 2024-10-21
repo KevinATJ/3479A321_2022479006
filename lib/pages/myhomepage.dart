@@ -3,9 +3,11 @@ import 'package:flutter_lab1/appdata.dart';
 import 'package:flutter_lab1/pages/aboutpage.dart';
 import 'package:flutter_lab1/pages/auditpage.dart';
 import 'package:flutter_lab1/pages/detailpage.dart';
+import 'package:flutter_lab1/pages/preferencespage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -23,6 +25,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   Logger secondlogger = Logger();
+  String _userName = '';
 
   String iconPath = 'assets/icons/Hamburguesa.svg';
   String iconPathVictory = 'assets/icons/Win.svg';
@@ -38,6 +41,16 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     Provider.of<AppData>(context, listen: false).actions.add('Ingreso a la pantalla home');
     print('initState, mounted: $mounted');
+    _loadPreferences();
+  }
+
+  Future<void> _loadPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _userName = prefs.getString('userName') ?? 'Usuario';
+      _counter = prefs.getInt('counter') ?? 0;
+      print('Cargado nombre: $_userName, contador: $_counter');
+    });
   }
 
   @override
@@ -76,10 +89,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
     String gameIcon;
     String message;
+    /*
     if (context.watch<AppData>().counter == 10) {
       gameIcon = iconPathVictory;
       message = '¡Victoria!';
     } else if (context.watch<AppData>().counter == 5) {
+      gameIcon = iconPathDefeat;
+      message = 'Derrota';
+    } else {
+      gameIcon = iconPathReset;
+      message = 'Sigue jugando...';
+    }*/
+
+    if (_counter == 10) {
+      gameIcon = iconPathVictory;
+      message = '¡Victoria!';
+    } else if (_counter == 5) {
       gameIcon = iconPathDefeat;
       message = 'Derrota';
     } else {
@@ -96,9 +121,9 @@ class _MyHomePageState extends State<MyHomePage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const UserAccountsDrawerHeader(
-              accountName: Text('Kevin Troncoso'), 
-              accountEmail: Text('Kevintjara@gmail.com'),
+            UserAccountsDrawerHeader(
+              accountName: Text(_userName), 
+              accountEmail: const Text('Kevintjara@gmail.com'),
             ),
             ListTile(
               leading: const Icon(Icons.plus_one),
@@ -137,6 +162,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
               }
             ),
+            ListTile(
+              leading:  const Icon(Icons.tune),
+              title: const Text('Preferencias'),
+              onTap: (){
+                Navigator.push(
+                  context, 
+                  MaterialPageRoute(builder: (context) => const Preferencespage()),
+                  ).then((_)
+                  {
+                    _loadPreferences();
+                  });
+              }
+            ),
           ],
         ),
       ),
@@ -152,13 +190,21 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      SvgPicture.asset(
-                        gameIcon,
-                        width: 50,
-                        height: 50,
+                  child: Column(
+                    children: [
+                      Text(
+                        'Hola $_userName',
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          SvgPicture.asset(
+                            gameIcon,
+                            width: 50,
+                            height: 50,
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -183,19 +229,34 @@ class _MyHomePageState extends State<MyHomePage> {
                       IconButton(
                         color: Colors.red,
                         icon: const Icon(Icons.exposure_minus_1),
-                        onPressed: context.read<AppData>().decrementCounter,
+                        //onPressed: context.read<AppData>().decrementCounter,
+                        onPressed: (){
+                          setState((){
+                            _counter--;
+                          });
+                        },
                         tooltip: 'Disminuir',
                       ),
                       IconButton(
                         color: Colors.green,
                         icon: const Icon(Icons.plus_one),
-                        onPressed: context.read<AppData>().incrementCounter,
+                        //onPressed: context.read<AppData>().incrementCounter,
+                        onPressed: (){
+                          setState((){
+                            _counter++;
+                          });
+                        },
                         tooltip: 'Incrementar',
                       ),
                       IconButton(
                         color: Colors.blue,
                         icon: const Icon(Icons.refresh),
-                        onPressed: context.read<AppData>().resetCounter,
+                        //onPressed: context.read<AppData>().resetCounter,
+                        onPressed: (){
+                          setState((){
+                            _counter = 0;
+                          });
+                        },
                         tooltip: 'Resetear',
                       ),
                     ],

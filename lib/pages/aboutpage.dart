@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lab1/appdata.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_lab1/auditclass.dart'; 
+import 'package:flutter_lab1/utils/databasehelper.dart'; 
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-     Provider.of<AppData>(context, listen: false).actions.add('Ingreso a la pantalla about');
+    Provider.of<AppData>(context, listen: false).actions.add('Ingreso a la pantalla about');
+
+    final auditEntry = Auditclass(actionName: 'Ingreso a la pantalla about con registro BD');
+    DatabaseHelper.insertAuditclass(auditEntry);
 
     return Scaffold(
       appBar: AppBar(

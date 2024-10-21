@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lab1/appdata.dart';
 import 'package:flutter_lab1/pages/aboutpage.dart';
 import 'package:provider/provider.dart'; 
+import 'package:flutter_lab1/auditclass.dart'; 
+import 'package:flutter_lab1/utils/databasehelper.dart'; 
 
 
 class DetailPage extends StatelessWidget {
@@ -11,8 +13,12 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<AppData>(context, listen: false).actions.add('Ingreso a la pantalla detail');
-    int counter = context.watch<AppData>().counter;
 
+    final auditEntry = Auditclass(actionName: 'Ingreso a la pantalla detail con registro BD');
+    DatabaseHelper.insertAuditclass(auditEntry);
+
+    int counter = context.watch<AppData>().counter;
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail'),

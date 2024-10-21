@@ -6,10 +6,12 @@ import 'package:provider/provider.dart';
 import 'appdata.dart'; 
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  
   const MyApp({super.key});
 
   @override
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<AppData>( 
       create: (context) => AppData(),
       child: MaterialApp(
-        title: 'Laboratorio 4 Flutter',
+        title: 'Laboratorio 7 Flutter',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.deepPurple,
